@@ -1,5 +1,5 @@
 {
-  "name": "twitter-api",
+  "name": "movie-api",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -22,10 +22,6 @@
     "@angular/router": "^6.1.0",
     "core-js": "^2.5.4",
     "rxjs": "~6.2.0",
-    "ts-crypto": "0.0.3",
-    "twit": "^2.2.11",
-    "twitter": "^1.7.1",
-    "twitter-api-ts": "0.0.33",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
