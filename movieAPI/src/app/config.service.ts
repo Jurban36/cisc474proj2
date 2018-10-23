@@ -18,7 +18,7 @@ export class ConfigService {
     return this.http.get(this.configUrl,{headers: h});
   }
   //You can search for an actor and get their ID here
-  getActorName = (actorName: string):Observable<any> => {
+  getActorNameMovie = (actorName: string):Observable<any> => {
     const h: Headers=new Headers();
     var splitted = actorName.split(" "); 
     let i =0;
@@ -27,7 +27,7 @@ export class ConfigService {
     console.log(splitted);
     return this.http.get(this.testURL,{headers: h});
   }
-  getActorPairs = (actorName: string):Observable<any> => {
+  getActorPairsMovie = (actorName: string):Observable<any> => {
     const h: Headers=new Headers();
     var splitted = actorName.split(" "); 
     let i =0;
@@ -41,19 +41,21 @@ export class ConfigService {
     console.log(this.testURL);
     return this.http.get(this.testURL,{headers: h});
   }
-  getGenre = ():Observable<any> => {
+
+
+  getGenreMovie = ():Observable<any> => {
     const h: Headers=new Headers();
     this.languageURL = "https://api.themoviedb.org/3/genre/movie/list?api_key=9374cadd7f8f1a2add90862df0a725e1&language=en-US"
     console.log(this.languageURL);
     return this.http.get(this.languageURL,{headers: h});
   }
-  getLanguage = ():Observable<any> => {
+  getLanguageMovie = ():Observable<any> => {
     const h: Headers=new Headers();
     this.genreURL = "https://api.themoviedb.org/3/configuration/languages?api_key=9374cadd7f8f1a2add90862df0a725e1";
     console.log(this.genreURL);
     return this.http.get(this.genreURL,{headers: h});
   }
-  getEverything = (actors: string, Genre: string, releaseDate: string, language: string, rating: string):Observable<any> => {
+  getEverythingMovie = (actors: string, Genre: string, releaseDate: string, language: string, rating: string, minRuntime: string, maxRunTime: string):Observable<any> => {
     const h: Headers=new Headers();
     var splitted = actors.split(" ");
     let i =0;
@@ -64,7 +66,8 @@ export class ConfigService {
       }
       else{this.testingMultiple+=splitted[i]+","}
     }
-    this.finalURL = "https://api.themoviedb.org/3/discover/movie?api_key=9374cadd7f8f1a2add90862df0a725e1"+language+"&include_adult=false&include_video=false&page=1"+rating+releaseDate+Genre+actors;
+    this.finalURL = "https://api.themoviedb.org/3/discover/movie?api_key=9374cadd7f8f1a2add90862df0a725e1"+language+"&include_adult=false&include_video=false&page=1"+rating+releaseDate+Genre+actors+minRuntime+maxRunTime;
+    console.log(this.finalURL);
     return this.http.get(this.finalURL,{headers: h});
   }
 }

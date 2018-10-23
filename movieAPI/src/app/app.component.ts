@@ -14,6 +14,8 @@ export class AppComponent {
   languageList="&language=";
   actorIDs = "&with_people=";
   actorName = "Ben Stiller Owen Wilson";
+  minRuntime = "&with_runtime.gte=100";
+  maxRuntime = "&with_runtime.lte=110";
   splitted = this.actorName.split(" ");
   title = 'movieAPI';
   releaseDateBefore = "&primary_release_date.lte=2010-01-01"
@@ -27,7 +29,7 @@ export class AppComponent {
   };
   pullGenre = () =>{
     let genre = "Comedy";
-    this.svc.getGenre().subscribe(data=>{
+    this.svc.getGenreMovie().subscribe(data=>{
       // this.genreList = data.json().genres;
       let i =0;
       for (i =0;i<data.json().genres.length;i++){
@@ -39,7 +41,7 @@ export class AppComponent {
   }
   pullLanguage = () =>{
     let language = "English";
-    this.svc.getLanguage().subscribe(data=>{
+    this.svc.getLanguageMovie().subscribe(data=>{
       let i =0;
       for (i =0;i<data.json().length;i++){
         if (data.json()[i].english_name==language){
@@ -59,7 +61,7 @@ export class AppComponent {
     let i = 0;
     for (i=0;i<this.splitted.length;i++){
       let string = this.splitted[i]+" "+this.splitted[i+1];
-      this.svc.getActorName(string).subscribe(data=>{
+      this.svc.getActorNameMovie(string).subscribe(data=>{
         let testing = data.json();
         let actorIDAmount = this.actorIDs.split(",");
         if (actorIDAmount.length==this.splitted.length/2){
@@ -72,10 +74,9 @@ export class AppComponent {
       });
       i+=1;
     } 
-    
   }
-  pullFinal = () =>{
-    this.svc.getEverything(this.actorIDs,this.genreList,this.releaseDateBefore,this.languageList,this.goodMovies).subscribe(data=>{
+  pullFinalMovie = () =>{
+    this.svc.getEverythingMovie(this.actorIDs,this.genreList,this.releaseDateBefore,this.languageList,this.goodMovies,this.minRuntime,this.maxRuntime).subscribe(data=>{
       console.log(data.json());
     });
   }
@@ -86,7 +87,7 @@ export class AppComponent {
     setTimeout(() => {
       console.log(this.genreList)
       console.log(this.actorIDs);
-      this.pullFinal();
+      this.pullFinalMovie();
     }, 1000);
       
     //DONT DELETE THIS!!!
