@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
+import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { CarouselComponent } from './carousel/carousel.component';
 import { NavigationbarComponent } from './navigationbar/navigationbar.component';
@@ -18,7 +18,8 @@ import { WhatwedoComponent } from './whatwedo/whatwedo.component';
   ],
   imports: [
     BrowserModule,
-    NgbModule
+    NgbModule,
+    HttpModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
