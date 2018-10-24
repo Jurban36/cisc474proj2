@@ -101,7 +101,7 @@ export class AppComponent {
     document.getElementById('releaseDate').innerHTML ="Release Date: "+random.release_date ;
     document.getElementById('rating').innerHTML ="Rating: "+random.vote_average ;
   }
-  constructor(private svc:ConfigService){
+  construct = () =>{
     this.pullGenre();
     this.pullLanguage();
     if (this.desiredFormat=="Movie")
@@ -117,6 +117,9 @@ export class AppComponent {
     setTimeout(() => {
       this.randomFunction();
     }, 1200);
+  }
+  constructor(private svc:ConfigService){
+    this.construct();
     //DONT DELETE THIS!!!
     // this.svc.getConfig().subscribe(data=>{
     //   console.log(data.results);
