@@ -11,9 +11,36 @@ export class SurveyComponent implements OnInit {
   
 
   constructor(private util:AppComponent) { }
+  movieortv(val){
+    console.log(val.srcElement.value);
+  }
+  genre(val){
+    console.log(val.srcElement.value);
+  }
+  language(val){
+    console.log(val.srcElement.value);
+  }
+  actors(val){
+    console.log(val.srcElement.value);
+  }
+  minyear(val){
+    console.log(val.value);
+  }
+  maxyear(val){
+    console.log(val.value);
+  }
+  mindur(val){
+    console.log(val.value);
+  }
+  maxdur(val){
+    console.log(val.value);
+  }
+  bad(val){
+    console.log(val.srcElement.checked);
+  }
   submitMovie() {
 
-    this.util.construct();
+    //this.util.construct();
     
     setTimeout(() => {
       console.log("hellooooo")
