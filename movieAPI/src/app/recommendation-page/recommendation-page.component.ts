@@ -1,4 +1,4 @@
-import { Component, OnInit, Injectable } from '@angular/core';
+import { Component, OnInit, Injectable, Input } from '@angular/core';
 // import { AppComponent } from '../app.component';
 import { ConfigService } from './config.service';
 import { SurveyComponent } from '../survey/survey.component';
@@ -12,48 +12,49 @@ import { SurveyComponent } from '../survey/survey.component';
   providedIn: 'root'
 })
 export class RecommendationPageComponent implements OnInit {
-
-  title ;
-  actorsMoviesTogether;
+  title;
+  actorsMoviesTogether="";
   finalData;
-  desiredFormat;
+  desiredFormat="";
   //Both
-  genreList;
+  genreList="";
   languageList="&language=";
-  maxRuntime;
-  minRuntime;
-  genre;
-  language;
+  maxRuntime="";
+  minRuntime="";
+  genre="";
+  language="";
   //Movie
   actorIDs = "&with_people=";
-  actorName;
+  actorName="";
   splitted;
-  goodMovies;
-  badMovies;
-  releaseDateBefore;
-  releaseDateAfter;
+  goodMovies="";
+  badMovies="";
+  releaseDateBefore="";
+  releaseDateAfter="";
   //TV
-  tvRating;
-  airedBefore;
-  airedAfter;
+  tvRating="";
+  airedBefore="";
+  airedAfter="";
   model = {
     left: true,
     middle: false,
     right: false
   };
   setValues = () =>{
+    console.log("Genre",this.util.genre)
     this.title = this.util.title;
     this.desiredFormat=this.util.desiredFormat;
     //Both
     this.genreList=this.util.genreList;
     if (this.maxRuntime.length>=1)
       this.maxRuntime="&with_runtime.lte="+this.util.maxRuntime;
-    if (this.minRuntime.length>)
+    if (this.minRuntime.length>=1)
       this.minRuntime="&with_runtime.gte="+this.util.minRuntime;
     this.genre=this.util.genre;
     //Movie
     this.actorName = this.util.actorName;
-    this.splitted = this.actorName.split(" ");
+    if (this.actorName.length>=1)
+      this.splitted = this.actorName.split(" ");
     if (this.util.goodMovies.length>=1)
       this.goodMovies="&vote_average.gte="+this.util.goodMovies;
     if (this.util.badMovies.length>=1)
@@ -69,6 +70,7 @@ export class RecommendationPageComponent implements OnInit {
       this.airedBefore="&first_air_date.lte="+this.util.airedBefore+"01-01";
     if (this.util.airedAfter.length>=1)
       this.airedAfter="&first_air_date.gte="+this.util.airedAfter+"01-01";
+    console.log(this.actorName);
   }
   pullGenre = () =>{
     this.svc.getGenreMovie().subscribe(data=>{
@@ -85,7 +87,7 @@ export class RecommendationPageComponent implements OnInit {
     this.svc.getLanguageMovie().subscribe(data=>{
       let i =0;
       for (i =0;i<data.json().length;i++){
-        if (data.json()[i].english_name==language){
+        if (data.json()[i].english_name==this.language){
           this.languageList += data.json()[i].iso_639_1;
         }
       }
@@ -131,9 +133,11 @@ export class RecommendationPageComponent implements OnInit {
     document.getElementById('rating').innerHTML ="Rating: "+random.vote_average ;
   }
   construct = () =>{
-    this.pullGenre();
-    this.pullLanguage();
-    if (this.desiredFormat=="Movie")
+    if (this.genre.length>=1)
+      this.pullGenre();
+    if (this.language.length>=1)
+      this.pullLanguage();
+    if ((this.desiredFormat=="Movie")&&(this.actorName.length>=1))
       this.pullActors();
     setTimeout(() => {
       console.log(this.genreList)

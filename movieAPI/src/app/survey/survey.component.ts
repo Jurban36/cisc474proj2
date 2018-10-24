@@ -11,30 +11,70 @@ import { Component, OnInit, Input, Injectable } from '@angular/core';
 export class SurveyComponent implements OnInit {
 
   title = 'movieAPI';
-  actorsMoviesTogether;
-  finalData;
-  desiredFormat;
+  actorsMoviesTogether="";
+  finalData="";
+  desiredFormat="Movie";
   //Both
-  genreList;
-  languageList="&language=";
-  maxRuntime = "&with_runtime.lte=120";
-  minRuntime = "&with_runtime.gte=60";
-  genre;
-  language;
+  genreList="";
+  language="";
+  languageList="";
+  maxRuntime="";
+  minRuntime="";
+  genre="";
   //Movie
-  actorIDs = "&with_people=";
-  actorName="Ben Stiller Owen Wilson";
-  goodMovies = "&vote_average.gte=6"
-  badMovies = "&vote_average.lte=6"
-  releaseDateBefore = "&primary_release_date.lte=2010-01-01"
-  releaseDateAfter = "&primary_release_date.gte=2001-01-01"
+  actorName="";
+  goodMovies="";
+  badMovies="";
+  releaseDateBefore="";
+  releaseDateAfter="";
   //TV
-  tvRating = "&vote_average.gte=8";
-  airedBefore = "&first_air_date.lte=2016-01-01";
-  airedAfter = "&first_air_date.gte=2010-01-01";
+  tvRating = "8";
+  airedBefore = "2016";
+  airedAfter = "2010";
 
-  constructor() { }
+
+  movieortv(val){
+    console.log(val.srcElement.value);
+    this.desiredFormat = val.srcElement.value;
+  }
+  movgenre(val){
+    console.log(val.srcElement.value);
+    this.genre = val.srcElement.value;
+  }
+  movlanguage(val){
+    console.log(val.srcElement.value);
+    this.language = val.srcElement.value;
+  }
+  actors(val){
+    console.log(val.srcElement.value);
+    this.actorName = val.srcElement.value;
+    console.log(this.actorName);
+  }
+  minyear(val){
+    console.log(val.value);
+    this.releaseDateAfter = val.value;
+  }
+  maxyear(val){
+    console.log(val.value);
+    this.releaseDateBefore = val.value;
+  }
+  mindur(val){
+    console.log(val.value);
+    this.minRuntime = val.value;
+  }
+  maxdur(val){
+    console.log(val.value);
+    this.maxRuntime = val.value;
+  }
+  bad(val){
+    console.log(val.srcElement.checked);
+    this.badMovies = val.srcElement.checked;
+  }
   submitMovie() {
+
+    //this.util.construct();
+
+
 
     // this.util.construct();
     
