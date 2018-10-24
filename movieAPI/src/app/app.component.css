@@ -1,11 +1,17 @@
 #whatwedo{
     background-color: darkmagenta;
-    height: 500px;
+    padding-top: 55px;
 }
 
 #quizcomponent{
-    background-color: darkgreen;
+    background-color: #F36D48;
     height: 500px;
+    padding-top: 55px;
+}
+
+#aboutus{
+    background-color: white;
+    padding-top: 55px;
 }
 
 /* This is the CSS stuff for the link that I used for About Us and What We Do.
