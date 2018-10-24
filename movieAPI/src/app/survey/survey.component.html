@@ -12,7 +12,7 @@
   </div>
   <div class="form-group">
     <label for="exampleFormControlSelect2">Pick a genre</label>
-    <select class="form-control" id="exampleFormControlSelect2" (change)="genre($event)">
+    <select class="form-control" id="exampleFormControlSelect2" (change)="movgenre($event)">
       <option selected>...</option>
       <option value = "Comedy">Comedy</option>
       <option value = "Action">Action</option>
@@ -24,7 +24,7 @@
   </div>
   <div class="form-group">
     <label for="languageSelect">Select a langauge</label>
-    <select class="form-control" id="languageSelect" (change)="language($event)">
+    <select class="form-control" id="languageSelect" (change)="movlanguage($event)">
       <option selected>...</option>
       <option>English</option>
       <option>French</option>
