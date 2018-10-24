@@ -5,11 +5,11 @@
 
 #quizcomponent{
     background-color: rgba(186, 217, 247, 0.486);
-    height: 800px;
+    height: 850px;
     display: flex;
     justify-content: center;
     background-color: #F36D48;
-    height: 500px;
+   
     padding-top: 55px;
 }
 
