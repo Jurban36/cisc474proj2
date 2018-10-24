@@ -8,3 +8,12 @@
 .stretchimg {
     width: 100vw;
 }
+
+.pic1{
+    width: 100vh;
+
+}
+
+.heightcontrol{
+    max-height: 50px;
+}

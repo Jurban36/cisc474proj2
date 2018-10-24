@@ -8,9 +8,17 @@ import { CarouselComponent } from './carousel/carousel.component';
 import { NavigationbarComponent } from './navigationbar/navigationbar.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { WhatwedoComponent } from './whatwedo/whatwedo.component';
+import { RecommendationPageComponent } from './recommendation-page/recommendation-page.component';
+import { RouterModule, Routes } from '@angular/router';
+import { HomePageComponent } from './home-page/home-page.component';
 import {SliderModule} from "angular-double-slider";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSliderModule} from '@angular/material/slider';
+
+const appRoutes: Routes = [
+  {path: '',component: HomePageComponent},
+  { path: 'recommendation', component: RecommendationPageComponent },
+];
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +27,10 @@ import {MatSliderModule} from '@angular/material/slider';
     NavigationbarComponent,
     AboutusComponent,
     WhatwedoComponent,
+    RecommendationPageComponent,
+    HomePageComponent,
   ],
+  
   imports: [
     BrowserModule,
     NgbModule,
@@ -27,8 +38,12 @@ import {MatSliderModule} from '@angular/material/slider';
     MatSliderModule,
     SliderModule,
     HttpModule,
+    RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: true } // <-- debugging purposes only
+    ),
   ],
-  providers: [],
+  providers: [AppComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
