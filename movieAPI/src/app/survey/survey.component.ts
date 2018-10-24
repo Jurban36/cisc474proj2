@@ -13,13 +13,14 @@ export class SurveyComponent implements OnInit {
   title = 'movieAPI';
   actorsMoviesTogether;
   finalData;
-  desiredFormat = "Movie"
+  desiredFormat;
   //Both
-  genreList="&with_genres=";
+  genreList;
   languageList="&language=";
   maxRuntime = "&with_runtime.lte=120";
   minRuntime = "&with_runtime.gte=60";
-  genre = "Comedy";
+  genre;
+  language;
   //Movie
   actorIDs = "&with_people=";
   actorName="Ben Stiller Owen Wilson";

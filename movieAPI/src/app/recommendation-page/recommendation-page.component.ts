@@ -19,12 +19,13 @@ export class RecommendationPageComponent implements OnInit {
   desiredFormat;
   //Both
   genreList;
-  languageList;
+  languageList="&language=";
   maxRuntime;
   minRuntime;
   genre;
+  language;
   //Movie
-  actorIDs;
+  actorIDs = "&with_people=";
   actorName;
   splitted;
   goodMovies;
@@ -45,22 +46,29 @@ export class RecommendationPageComponent implements OnInit {
     this.desiredFormat=this.util.desiredFormat;
     //Both
     this.genreList=this.util.genreList;
-    this.languageList=this.util.languageList;
-    this.maxRuntime=this.util.maxRuntime;
-    this.minRuntime=this.util.minRuntime;
+    if (this.maxRuntime.length>=1)
+      this.maxRuntime="&with_runtime.lte="+this.util.maxRuntime;
+    if (this.minRuntime.length>)
+      this.minRuntime="&with_runtime.gte="+this.util.minRuntime;
     this.genre=this.util.genre;
     //Movie
-    this.actorIDs=this.util.actorIDs;
     this.actorName = this.util.actorName;
     this.splitted = this.actorName.split(" ");
-    this.goodMovies=this.util.goodMovies;
-    this.badMovies=this.util.badMovies;
-    this.releaseDateBefore=this.util.releaseDateBefore;
-    this.releaseDateAfter=this.util.releaseDateAfter;
+    if (this.util.goodMovies.length>=1)
+      this.goodMovies="&vote_average.gte="+this.util.goodMovies;
+    if (this.util.badMovies.length>=1)
+      this.badMovies="&vote_average.lte="+this.util.badMovies;
+    if (this.util.releaseDateBefore.length>=1)
+      this.releaseDateBefore="&primary_release_date.lte="+this.util.releaseDateBefore+"-01-01";
+    if (this.util.releaseDateAfter.length>=1)
+      this.releaseDateAfter="&primary_release_date.gte="+this.util.releaseDateAfter+"-01-01";
     //TV
-    this.tvRating=this.util.tvRating;
-    this.airedBefore=this.util.airedBefore;
-    this.airedAfter=this.util.airedAfter;
+    if (this.util.tvRating.length>=1)
+      this.tvRating="&vote_average.gte="+this.util.tvRating;
+    if (this.util.airedBefore.length>=1)
+      this.airedBefore="&first_air_date.lte="+this.util.airedBefore+"01-01";
+    if (this.util.airedAfter.length>=1)
+      this.airedAfter="&first_air_date.gte="+this.util.airedAfter+"01-01";
   }
   pullGenre = () =>{
     this.svc.getGenreMovie().subscribe(data=>{
@@ -74,7 +82,6 @@ export class RecommendationPageComponent implements OnInit {
     });
   }
   pullLanguage = () =>{
-    let language = "English";
     this.svc.getLanguageMovie().subscribe(data=>{
       let i =0;
       for (i =0;i<data.json().length;i++){
