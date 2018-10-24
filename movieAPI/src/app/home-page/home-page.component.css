@@ -4,9 +4,13 @@
 }
 
 #quizcomponent{
+    background-color: rgba(186, 217, 247, 0.486);
+    display: flex;
+    justify-content: center;
     background-color: #F36D48;
-    height: 500px;
+    padding-top: 55px;
 }
+
 #aboutus{
     background-color: white;
     padding-top: 55px;
