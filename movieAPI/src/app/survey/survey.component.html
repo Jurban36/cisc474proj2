@@ -1,6 +1,6 @@
 
 
-<form id='masterForm'>
+<form id='masterForm' action="/recommendation" onsubmit = "submitMovie()">
 
   <div class="form-group">
     <label for="exampleFormControlSelect1">What do you want to watch?</label>
@@ -14,12 +14,12 @@
     <label for="exampleFormControlSelect2">Pick a genre</label>
     <select class="form-control" id="exampleFormControlSelect2">
       <option selected>...</option>
-      <option>Comedy</option>
-      <option>Action</option>
-      <option>Romance</option>
-      <option>Horror</option>
-      <option>Documentary</option>
-      <option>Kids</option>
+      <option (click)="selectGenre()" value = "Comedy">Comedy</option>
+      <option value = "Action">Action</option>
+      <option value = "Romance">Romance</option>
+      <option value = "Horror">Horror</option>
+      <option value = "Documentary">Documentary</option>
+      <option value = "Fantasy">Fantasy</option>
     </select>
   </div>
   <div class="form-group">
@@ -56,6 +56,7 @@
       Are bad movies okay?
     </label>
   </div>
+  <button (click) = 'submitMovie()' type="submit" class="btn btn-primary">Submit</button>
   
 
 </form>
