@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ConfigService } from './config.service';
 import { timeout } from 'q';
+import { RecommendationPageComponent } from './recommendation-page/recommendation-page.component';
 
 @Component({
   selector: 'app-root',
@@ -9,31 +10,39 @@ import { timeout } from 'q';
 })
 export class AppComponent {
 
+  title = 'movieAPI';
   actorsMoviesTogether;
+  finalData;
+  desiredFormat = "Movie"
+  //Both
   genreList="&with_genres=";
   languageList="&language=";
+  maxRuntime = "&with_runtime.lte=120";
+  minRuntime = "&with_runtime.gte=60";
+  genre = "Comedy";
+  //Movie
   actorIDs = "&with_people=";
   actorName = "Ben Stiller Owen Wilson";
-  minRuntime = "&with_runtime.gte=100";
-  maxRuntime = "&with_runtime.lte=110";
   splitted = this.actorName.split(" ");
-  title = 'movieAPI';
-  releaseDateBefore = "&primary_release_date.lte=2010-01-01"
-  releaseDateAfter = "&primary_release_date.gte=2010-01-01"
   goodMovies = "&vote_average.gte=6"
   badMovies = "&vote_average.lte=6"
+  releaseDateBefore = "&primary_release_date.lte=2010-01-01"
+  releaseDateAfter = "&primary_release_date.gte=2001-01-01"
+  //TV
+  tvRating = "&vote_average.gte=8";
+  airedBefore = "&first_air_date.lte=2016-01-01";
+  airedAfter = "&first_air_date.gte=2010-01-01";
   model = {
     left: true,
     middle: false,
     right: false
   };
   pullGenre = () =>{
-    let genre = "Comedy";
     this.svc.getGenreMovie().subscribe(data=>{
       // this.genreList = data.json().genres;
       let i =0;
       for (i =0;i<data.json().genres.length;i++){
-        if (data.json().genres[i].name==genre){
+        if (data.json().genres[i].name==this.genre){
           this.genreList += data.json().genres[i].id;
         }
       }
@@ -51,12 +60,6 @@ export class AppComponent {
       console.log(this.languageList)
     });
   }
-  // pullActorPairs = () =>{
-  //   console.log("here")
-  //   this.svc.getActorPairs(this.actorIDs).subscribe(data=>{
-  //     this.actorsMoviesTogether = data.json();
-  //   });
-  // }
   pullActors =() =>{
     let i = 0;
     for (i=0;i<this.splitted.length;i++){
@@ -76,20 +79,38 @@ export class AppComponent {
     } 
   }
   pullFinalMovie = () =>{
-    this.svc.getEverythingMovie(this.actorIDs,this.genreList,this.releaseDateBefore,this.languageList,this.goodMovies,this.minRuntime,this.maxRuntime).subscribe(data=>{
+    this.svc.getEverythingMovie(this.actorIDs,this.genreList,this.releaseDateAfter,this.releaseDateBefore,this.languageList,this.goodMovies,this.minRuntime,this.maxRuntime).subscribe(data=>{
       console.log(data.json());
+      this.finalData = data.json();
+    });
+  }
+  pullFinalTV = () =>{
+    this.svc.getEverythingTV(this.airedBefore,this.airedAfter,this.tvRating,this.genreList,this.maxRuntime,this.minRuntime).subscribe(data=>{
+      console.log(data.json());
+      this.finalData = data.json();
     });
   }
   constructor(private svc:ConfigService){
     this.pullGenre();
-    this.pullActors();
     this.pullLanguage();
+    if (this.desiredFormat=="Movie")
+      this.pullActors();
     setTimeout(() => {
       console.log(this.genreList)
       console.log(this.actorIDs);
-      this.pullFinalMovie();
+      if (this.desiredFormat=="Movie")
+        this.pullFinalMovie();
+      else 
+        this.pullFinalTV();
     }, 1000);
-      
+    // setTimeout(() => {
+    //   var random = this.finalData.results[Math.floor(Math.random() * this.finalData.results.length)];
+    //   console.log(random);
+    //   document.getElementById('title').innerHTML ="Title: "+random.original_title ;
+    //   document.getElementById('summary').innerHTML ="Summary: "+random.overview ;
+    //   document.getElementById('releaseDate').innerHTML ="Release Date: "+random.release_date ;
+    //   document.getElementById('rating').innerHTML ="Rating: "+random.vote_average ;
+    // }, 1200);
     //DONT DELETE THIS!!!
     // this.svc.getConfig().subscribe(data=>{
     //   console.log(data.results);
