@@ -9,7 +9,9 @@ import { AboutusComponent } from './aboutus/aboutus.component';
 import { WhatwedoComponent } from './whatwedo/whatwedo.component';
 import { RecommendationPageComponent } from './recommendation-page/recommendation-page.component';
 import { RouterModule, Routes } from '@angular/router';
+import { HomePageComponent } from './home-page/home-page.component';
 const appRoutes: Routes = [
+  {path: '',component: HomePageComponent},
   { path: 'recommendation', component: RecommendationPageComponent },
 ];
 @NgModule({
@@ -20,6 +22,7 @@ const appRoutes: Routes = [
     AboutusComponent,
     WhatwedoComponent,
     RecommendationPageComponent,
+    HomePageComponent,
   ],
   
   imports: [
@@ -31,7 +34,7 @@ const appRoutes: Routes = [
       { enableTracing: true } // <-- debugging purposes only
     ),
   ],
-  providers: [],
+  providers: [AppComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

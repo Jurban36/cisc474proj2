@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { AppComponent } from '../app.component';
 @Component({
   selector: 'app-recommendation-page',
   templateUrl: './recommendation-page.component.html',
@@ -7,8 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecommendationPageComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private util:AppComponent) { }
+  testFunct(){
+    this.util.randomFunction();
+  }
   ngOnInit() {
   }
 

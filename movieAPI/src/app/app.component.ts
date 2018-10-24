@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { ConfigService } from './config.service';
 import { timeout } from 'q';
 import { RecommendationPageComponent } from './recommendation-page/recommendation-page.component';
@@ -7,6 +7,9 @@ import { RecommendationPageComponent } from './recommendation-page/recommendatio
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
+})
+@Injectable({
+  providedIn: 'root'
 })
 export class AppComponent {
 
@@ -90,6 +93,14 @@ export class AppComponent {
       this.finalData = data.json();
     });
   }
+  randomFunction = () =>{
+    var random = this.finalData.results[Math.floor(Math.random() * this.finalData.results.length)];
+    console.log(random);
+    document.getElementById('title').innerHTML ="Title: "+random.original_title ;
+    document.getElementById('summary').innerHTML ="Summary: "+random.overview ;
+    document.getElementById('releaseDate').innerHTML ="Release Date: "+random.release_date ;
+    document.getElementById('rating').innerHTML ="Rating: "+random.vote_average ;
+  }
   constructor(private svc:ConfigService){
     this.pullGenre();
     this.pullLanguage();
@@ -103,14 +114,9 @@ export class AppComponent {
       else 
         this.pullFinalTV();
     }, 1000);
-    // setTimeout(() => {
-    //   var random = this.finalData.results[Math.floor(Math.random() * this.finalData.results.length)];
-    //   console.log(random);
-    //   document.getElementById('title').innerHTML ="Title: "+random.original_title ;
-    //   document.getElementById('summary').innerHTML ="Summary: "+random.overview ;
-    //   document.getElementById('releaseDate').innerHTML ="Release Date: "+random.release_date ;
-    //   document.getElementById('rating').innerHTML ="Rating: "+random.vote_average ;
-    // }, 1200);
+    setTimeout(() => {
+      this.randomFunction();
+    }, 1200);
     //DONT DELETE THIS!!!
     // this.svc.getConfig().subscribe(data=>{
     //   console.log(data.results);
