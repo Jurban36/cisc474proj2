@@ -1,0 +1,11 @@
+#whatwedo{
+    background-color: darkmagenta;
+    height: 500px;
+}
+
+#quizcomponent{
+    background-color: rgba(186, 217, 247, 0.486);
+    height: 800px;
+    display: flex;
+    justify-content: center;
+}

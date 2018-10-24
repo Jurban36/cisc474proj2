@@ -6,10 +6,13 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./survey.component.css']
 })
 export class SurveyComponent implements OnInit {
+  
+
+  
 
   constructor() { }
 
   ngOnInit() {
   }
-  
+
 }
