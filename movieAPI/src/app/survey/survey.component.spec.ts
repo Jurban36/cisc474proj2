@@ -5,7 +5,6 @@ import { SurveyComponent } from './survey.component';
 describe('SurveyComponent', () => {
   let component: SurveyComponent;
   let fixture: ComponentFixture<SurveyComponent>;
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ SurveyComponent ]
