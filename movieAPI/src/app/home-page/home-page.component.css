@@ -3,18 +3,32 @@
     padding-top: 55px;
 }
 
+.submitbutton{
+    padding-top: -15px;
+    background-color: #cccccc;
+    color: #424242;
+    text-align: center;
+    margin: auto;
+    width: 425px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    font-size: 2em;
+}
+
 #quizcomponent{
-    background-color: rgba(186, 217, 247, 0.486);
     display: flex;
     justify-content: center;
     /* background-color: #F36D48; */
-    padding-top: 35px;
-    padding-bottom: 25px;
+    padding-top: 75px;
+    padding-bottom: 100px;
 }
 
 #aboutus{
     /* background-color: white; */
-    padding-top: 55px;
+    background-color: #cccccc;
+    color: #303030;
+    padding-top: 50px;
 }
 
 /* This is the CSS stuff for the link that I used for About Us and What We Do.

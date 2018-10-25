@@ -81,9 +81,10 @@ export class RecommendationPageComponent implements OnInit {
     right: false
   };
   reset(){
-    this.genreList="";
-    this.languageList ="";
-    this.actorIDs="";
+    this.genreList="&with_genres=";
+    this.languageList ="&language=";
+    this.actorIDs="&with_people=";
+    this.actorName="";
 
   }
   // setValues = () =>{
@@ -166,6 +167,7 @@ export class RecommendationPageComponent implements OnInit {
       console.log(data.json());
       this.finalData = data.json();
     });
+    this.reset();
   }
   randomFunction = () =>{
     var random = this.finalData.results[Math.floor(Math.random() * this.finalData.results.length)];
