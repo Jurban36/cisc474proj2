@@ -45,7 +45,7 @@
   <br>
   <label for="shortmovie">Shortest Movie Length (mins)</label><br>
   <div style="margin-top:.5em;"></div>
-  <mat-slider id="shortmovie" thumbLabel [displayWith]="formatLabel" min="0" max="240" style='width:500px' (change)="mindur($event)"></mat-slider> 
+  <mat-slider id="shortmovie" thumbLabel [displayWith]="formatLabel" min="0" max="240" style='width:500px; color:rgba(186, 217, 247, 0.486)' (change)="mindur($event)"></mat-slider> 
   <br><label for="longmovie">Longest Movie Length (mins)</label><br>
   <div style="margin-top:.5em;"></div>
   <mat-slider id="longmovie" thumbLabel [displayWith]="formatLabel" min="0" max="240" style='width:500px' (change)="maxdur($event)"></mat-slider>
@@ -55,8 +55,8 @@
     <label class="form-check-label" for="defaultCheck1">
       Are bad movies okay?
     </label>
-  </div>
-  <button (click) = 'submitMovie()' type="submit" class="btn btn-primary">Submit</button>
+  </div><br>
+  <button (click) = 'submitMovie()' type="submit" class="btn btn-primary submitbutton">Submit</button>
   
 
 </form>
