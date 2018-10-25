@@ -1,12 +1,12 @@
 
 #buttoncomponent{
     /* left: -500px; */
-    position: absolute;
+    position: relative;
     left: 70%;
     top: 80%
 }
 #resultsPage{
-    position:fixed;
+    position: relative;
     top: 30%;
     left: 50%;
     width:30em;
