@@ -16,6 +16,8 @@ export class RecommendationPageComponent implements OnInit {
   actorsMoviesTogether="";
   finalData;
   desiredFormat="Movie";
+  pageNumber = 1;
+  listOfHit = [];
   //Both
   genreList="";
   languageList="&language=";
@@ -112,20 +114,25 @@ export class RecommendationPageComponent implements OnInit {
     } 
   }
   pullFinalMovie = () =>{
-    this.svc.getEverythingMovie(this.actorIDs,this.genreList,this.releaseDateAfter,this.releaseDateBefore,this.languageList,this.goodMovies,this.minRuntime,this.maxRuntime).subscribe(data=>{
-      console.log(data.json());
-      this.finalData = data.json();
-    });
-  }
-  pullFinalTV = () =>{
-    this.svc.getEverythingTV(this.airedBefore,this.airedAfter,this.tvRating,this.genreList,this.maxRuntime,this.minRuntime).subscribe(data=>{
+    this.svc.getEverythingMovie(this.actorIDs,this.genreList,this.releaseDateAfter,this.releaseDateBefore,this.languageList,this.goodMovies,this.minRuntime,this.maxRuntime,this.pageNumber.toString()).subscribe(data=>{
       console.log(data.json());
       this.finalData = data.json();
     });
   }
   randomFunction = () =>{
     var random = this.finalData.results[Math.floor(Math.random() * this.finalData.results.length)];
-    console.log(random);
+    if (this.listOfHit.length==0){}
+    else if (this.listOfHit.length==this.finalData.results.length){
+      this.listOfHit = [];
+      this.pageNumber = this.pageNumber+=1;
+      this.pullFinalMovie();
+      random = this.finalData.results[Math.floor(Math.random() * this.finalData.results.length)];
+    }
+    else{
+      while (this.listOfHit.includes(random))
+        random = this.finalData.results[Math.floor(Math.random() * this.finalData.results.length)];
+    }
+    this.listOfHit.push(random);
     document.getElementById('title').innerHTML ="Title: "+random.original_title ;
     document.getElementById('summary').innerHTML ="Summary: "+random.overview ;
     document.getElementById('releaseDate').innerHTML ="Release Date: "+random.release_date ;
@@ -141,10 +148,7 @@ export class RecommendationPageComponent implements OnInit {
     setTimeout(() => {
       console.log(this.genreList)
       console.log(this.actorIDs);
-      if (this.desiredFormat=="Movie")
-        this.pullFinalMovie();
-      else 
-        this.pullFinalTV();
+      this.pullFinalMovie();
     }, 1000);
     setTimeout(() => {
       this.randomFunction();

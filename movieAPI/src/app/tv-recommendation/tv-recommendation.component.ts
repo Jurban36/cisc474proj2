@@ -12,6 +12,8 @@ export class TvRecommendationComponent implements OnInit {
   actorsMoviesTogether="";
   finalData;
   desiredFormat="TV";
+  pageNumber = 1;
+  listOfHit = [];
   //Both
   genreList="Comedy";
   languageList="&language=en";
@@ -65,8 +67,18 @@ export class TvRecommendationComponent implements OnInit {
   }
   randomFunction = () =>{
     var random = this.finalData.results[Math.floor(Math.random() * this.finalData.results.length)];
-    console.log("RANDOM",random);
-    console.log("RANDOM",random.first_air_date);
+    if (this.listOfHit.length==0){}
+    else if (this.listOfHit.length==this.finalData.results.length){
+      this.listOfHit = [];
+      this.pageNumber = this.pageNumber+=1;
+      this.pullFinalTV();
+      random = this.finalData.results[Math.floor(Math.random() * this.finalData.results.length)];
+    }
+    else{
+      while (this.listOfHit.includes(random))
+        random = this.finalData.results[Math.floor(Math.random() * this.finalData.results.length)];
+    }
+    this.listOfHit.push(random);
     document.getElementById('title').innerHTML ="Title: "+random.original_name ;
     document.getElementById('summary').innerHTML ="Summary: "+random.overview ;
     document.getElementById('releaseDate').innerHTML ="First Aired: "+random.first_air_date ;
@@ -87,9 +99,10 @@ export class TvRecommendationComponent implements OnInit {
     }, 1200);
   }
   pullFinalTV = () =>{
-    this.svc.getEverythingTV(this.airedBefore,this.airedAfter,this.tvRating,this.genreList,this.maxRuntime,this.minRuntime).subscribe(data=>{
+    this.svc.getEverythingTV(this.airedBefore,this.airedAfter,this.tvRating,this.genreList,this.maxRuntime,this.minRuntime,this.pageNumber.toString()).subscribe(data=>{
       console.log(data.json());
       this.finalData = data.json();
+      console.log(this.finalData.results.length);
     });
   }
   constructor(private svc:ConfigService,private util: SurveyComponent){
@@ -108,6 +121,7 @@ export class TvRecommendationComponent implements OnInit {
     // });
   }
   testFunct(){
+    console.log("here")
     this.randomFunction();
   }
   ngOnInit() {
