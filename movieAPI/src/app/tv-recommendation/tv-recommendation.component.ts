@@ -11,7 +11,7 @@ export class TvRecommendationComponent implements OnInit {
   title;
   actorsMoviesTogether="";
   finalData;
-  desiredFormat="TV";
+  isMovie=false;
   pageNumber = 1;
   listOfHit = [];
   //Both
@@ -27,7 +27,7 @@ export class TvRecommendationComponent implements OnInit {
   airedAfter="";
   setValues = () =>{
     console.log("Genre",this.util.genre)
-    this.desiredFormat=this.util.desiredFormat;
+    this.isMovie=this.util.isMovie;
     //Both
     this.genreList=this.util.genreList;
     if (this.maxRuntime.length>=1)
@@ -36,8 +36,8 @@ export class TvRecommendationComponent implements OnInit {
       this.minRuntime="&with_runtime.gte="+this.util.minRuntime;
     this.genre=this.util.genre;
     //TV
-    if (this.util.tvRating.length>=1)
-      this.tvRating="&vote_average.gte="+this.util.tvRating;
+    //if (this.util.highRating.length>=1)
+     // this.tvRating="&vote_average.gte="+this.util.tvRating;
     if (this.util.airedBefore.length>=1)
       this.airedBefore="&first_air_date.lte="+this.util.airedBefore+"01-01";
     if (this.util.airedAfter.length>=1)

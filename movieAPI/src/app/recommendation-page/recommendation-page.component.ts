@@ -15,7 +15,7 @@ export class RecommendationPageComponent implements OnInit {
   title;
   actorsMoviesTogether="";
   finalData;
-  desiredFormat="Movie";
+  isMovie=true;
   pageNumber = 1;
   listOfHit = [];
   //Both
@@ -44,7 +44,8 @@ export class RecommendationPageComponent implements OnInit {
   };
   setValues = () =>{
     console.log("Genre",this.util.genre)
-    this.desiredFormat=this.util.desiredFormat;
+    this.title = this.util.title;
+    this.isMovie=this.util.isMovie;
     //Both
     this.genreList=this.util.genreList;
     if (this.maxRuntime.length>=1)
@@ -65,8 +66,8 @@ export class RecommendationPageComponent implements OnInit {
     if (this.util.releaseDateAfter.length>=1)
       this.releaseDateAfter="&primary_release_date.gte="+this.util.releaseDateAfter+"-01-01";
     //TV
-    if (this.util.tvRating.length>=1)
-      this.tvRating="&vote_average.gte="+this.util.tvRating;
+    //if (this.util.tvRating.length>=1)
+     // this.tvRating="&vote_average.gte="+this.util.tvRating;
     if (this.util.airedBefore.length>=1)
       this.airedBefore="&first_air_date.lte="+this.util.airedBefore+"01-01";
     if (this.util.airedAfter.length>=1)
@@ -143,7 +144,7 @@ export class RecommendationPageComponent implements OnInit {
       this.pullGenre();
     if (this.language.length>=1)
       this.pullLanguage();
-    if ((this.desiredFormat=="Movie")&&(this.actorName.length>=1))
+    if ((this.isMovie)&&(this.actorName.length>=1))
       this.pullActors();
     setTimeout(() => {
       console.log(this.genreList)

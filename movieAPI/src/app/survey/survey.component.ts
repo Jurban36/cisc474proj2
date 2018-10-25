@@ -13,7 +13,7 @@ export class SurveyComponent implements OnInit {
   title = 'movieAPI';
   actorsMoviesTogether="";
   finalData="";
-  desiredFormat="Movie";
+  isMovie=true; //boolean replacing desiredFormat
   //Both
   genreList="";
   language="";
@@ -28,15 +28,22 @@ export class SurveyComponent implements OnInit {
   releaseDateBefore="";
   releaseDateAfter="";
   //TV
-  tvRating = "8";
-  airedBefore = "2016";
-  airedAfter = "2010";
+  highRating="false";
+  airedBefore = "";
+  airedAfter = "";
 
 
   movieortv(val){
     console.log(val.srcElement.value);
-    this.desiredFormat = val.srcElement.value;
+    if(val.srcElement.value == "Movie") {
+      this.isMovie = true;
+    }
+    else{
+      this.isMovie = false;
+    }
+    
   }
+  //Movies
   movgenre(val){
     console.log(val.srcElement.value);
     this.genre = val.srcElement.value;
@@ -69,6 +76,19 @@ export class SurveyComponent implements OnInit {
   bad(val){
     console.log(val.srcElement.checked);
     this.badMovies = val.srcElement.checked;
+  }
+  //TV Shows
+  airedby(val){
+    console.log(val.value);
+    this.airedAfter = val.value;
+  }
+  airedsince(val){
+    console.log(val.value);
+    this.airedBefore = val.value;
+  }
+  tvrating(val){
+    console.log(val.srcElement.checked);
+    this.highRating = val.srcElement.checked;
   }
   submitMovie() {
 
