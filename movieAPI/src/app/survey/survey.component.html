@@ -33,9 +33,18 @@
     </select>
   </div>
   <div *ngIf="isMovie" class="form-group">
+      <div>
+          <p id = actor1>{{text}}<button id = "button1"type="button" (click)="testFunct('1')" class="close" aria-label="Close"> <span aria-hidden="true">&times;</span></button></p>
+          <p id = actor2>{{text}}<button id = "button2"type="button" (click)="testFunct('2')" class="close" aria-label="Close"> <span aria-hidden="true">&times;</span></button></p>
+          <p id = actor3>{{text}}<button id = "button3"type="button" (click)="testFunct('3')" class="close" aria-label="Close"> <span aria-hidden="true">&times;</span></button></p>
+          <p id = actor4>{{text}}<button id = "button4"type="button" (click)="testFunct('4')" class="close" aria-label="Close"> <span aria-hidden="true">&times;</span></button></p>
+          <p id = actor5>{{text}}<button id = "button5"type="button" (click)="testFunct('5')" class="close" aria-label="Close"> <span aria-hidden="true">&times;</span></button></p>
+          <p id="p3"></p>
+        </div>
     <label for="exampleFormControlTextarea1">Add some of your favorite actors/actresses</label>
     <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" (change)="actors($event)"></textarea>
   </div>
+  <!-- <button (click)='addParagraph()'type="button" class="btn btn-outline-light">Submit</button> -->
   <div *ngIf="isMovie" class="form-group">
     <label for="minyear">Movies Released Since</label><br>
     <div style="margin-top:.5em;"></div>
@@ -48,13 +57,17 @@
     <mat-slider id="maxyear" thumbLabel [displayWith]="formatLabel" min="1900" max="2018" style='width:500px' (change)="minyear($event)"></mat-slider>  
     <br>
   </div>
+  <div *ngIf="isMovie" class="form-group">
   <label for="shortmovie">Shortest Movie Length (mins)</label><br>
   <div style="margin-top:.5em;"></div>
   <mat-slider id="shortmovie" thumbLabel [displayWith]="formatLabel" min="0" max="240" style='width:500px; color:rgba(186, 217, 247, 0.486)' (change)="mindur($event)"></mat-slider> 
+  
+  </div>
+  <div *ngIf="isMovie" class="form-group">
   <br><label for="longmovie">Longest Movie Length (mins)</label><br>
   <div style="margin-top:.5em;"></div>
   <mat-slider id="longmovie" thumbLabel [displayWith]="formatLabel" min="0" max="240" style='width:500px' (change)="maxdur($event)"></mat-slider>
-
+  </div>
   <div *ngIf="isMovie" class="form-group">
     <label for="shortmovie">Shortest Movie Length (mins)</label><br>
     <div style="margin-top:.5em;"></div>
@@ -104,5 +117,6 @@
   </div>
   <button (click) = 'submitMovie()' type="submit" class="btn btn-primary">Submit</button>
   
+
 
 </form>

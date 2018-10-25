@@ -9,7 +9,42 @@ import { Component, OnInit, Input, Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class SurveyComponent implements OnInit {
-
+  testFunct(elementNumber: string){
+    // let deleteName = document.getElementById("actor"+this.actorCount).first;
+    let deletedName = document.getElementById("actor"+elementNumber).firstChild.nodeValue;
+    document.getElementById("button"+elementNumber).style.display="none";
+    document.getElementById("actor"+elementNumber).firstChild.nodeValue = "";
+    let splitted = this.actorName.split(" ");
+    let split2 = deletedName.split(" ");
+    let first = splitted.indexOf(split2[0]);
+    splitted.splice(first,2);
+    this.actorName= splitted.toString();
+    this.actorName = "";
+    let i = 0;
+    for (i=0;i<splitted.length;i++){
+      if (i==0)
+        this.actorName+=splitted[i];
+      else
+      this.actorName+=" "+splitted[i];
+    }
+  }
+  actorCount = 1;
+  addParagraph(){
+    console.log("here");
+    if (this.currentActor!=""){
+      let splitted = this.actorName.split(" ");
+      // var p2 = "<p div_id = "+splitted[1]+">"+this.actorName+'<button type="button" (click)="testFunct()" class="close" aria-label="Close"> <span aria-hidden="true">&times;</span></button>'+"</p>";
+      // console.log(p2);
+      console.log("button"+this.actorCount);
+      document.getElementById("button"+this.actorCount).style.display="block";
+      document.getElementById("actor"+this.actorCount).firstChild.nodeValue = this.currentActor;
+      console.log(document.getElementById("actor"+this.actorCount).firstChild.nodeValue)
+      // document.getElementById("actor"+this.actorCount). = ;
+      console.log(document.getElementById("button"+this.actorCount));
+      // console.log(document.getElementById("button"+this.actorCount))
+      this.actorCount+=1;
+    }
+  }
   title = 'movieAPI';
   actorsMoviesTogether="";
   finalData="";
@@ -22,6 +57,7 @@ export class SurveyComponent implements OnInit {
   minRuntime="";
   genre="";
   //Movie
+  currentActor="";
   actorName="";
   goodMovies="";
   badMovies="";
@@ -53,9 +89,13 @@ export class SurveyComponent implements OnInit {
     this.language = val.srcElement.value;
   }
   actors(val){
-    console.log(val.srcElement.value);
-    this.actorName = val.srcElement.value;
-    console.log(this.actorName);
+    this.currentActor = val.srcElement.value;
+    if (this.actorName.length>=1)
+      this.actorName += " "+val.srcElement.value;
+    else 
+      this.actorName= val.srcElement.value;
+    this.addParagraph();
+    val.srcElement.value = "";
   }
   minyear(val){
     console.log(val.value);
