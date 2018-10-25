@@ -35,7 +35,6 @@ const appRoutes: Routes = [
     NgbModule,
     BrowserAnimationsModule,
     MatSliderModule,
-    SliderModule,
     HttpModule,
     RouterModule.forRoot(
       appRoutes,

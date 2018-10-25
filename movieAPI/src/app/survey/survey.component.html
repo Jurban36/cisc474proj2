@@ -32,28 +32,68 @@
       <option>Japanese</option>
     </select>
   </div>
-  <div class="form-group">
+  <div *ngIf="isMovie" class="form-group">
     <label for="exampleFormControlTextarea1">Add some of your favorite actors/actresses</label>
     <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" (change)="actors($event)"></textarea>
   </div>
-  <label for="minyear">Movies Released Since</label><br>
-  <div style="margin-top:.5em;"></div>
-  <mat-slider id="minyear" thumbLabel [displayWith]="formatLabel" min="1900" max="2018" style='width:500px' (change)="minyear($event)"></mat-slider> 
-  <br><label for="maxyear">Movies Released By</label><br>
-  <div style="margin-top:.5em;"></div>
-  <mat-slider id="maxyear" thumbLabel [displayWith]="formatLabel" min="1900" max="2018" style='width:500px' (change)="minyear($event)"></mat-slider>  
+  <div *ngIf="isMovie" class="form-group">
+    <label for="minyear">Movies Released Since</label><br>
+    <div style="margin-top:.5em;"></div>
+    <mat-slider id="minyear" thumbLabel [displayWith]="formatLabel" min="1900" max="2018" style='width:500px' (change)="minyear($event)"></mat-slider>
+  </div> 
   <br>
-  <label for="shortmovie">Shortest Movie Length (mins)</label><br>
-  <div style="margin-top:.5em;"></div>
-  <mat-slider id="shortmovie" thumbLabel [displayWith]="formatLabel" min="0" max="240" style='width:500px' (change)="mindur($event)"></mat-slider> 
-  <br><label for="longmovie">Longest Movie Length (mins)</label><br>
-  <div style="margin-top:.5em;"></div>
-  <mat-slider id="longmovie" thumbLabel [displayWith]="formatLabel" min="0" max="240" style='width:500px' (change)="maxdur($event)"></mat-slider>
+  <div *ngIf="isMovie" class="form-group">
+    <label for="maxyear">Movies Released By</label><br>
+    <div style="margin-top:.5em;"></div>
+    <mat-slider id="maxyear" thumbLabel [displayWith]="formatLabel" min="1900" max="2018" style='width:500px' (change)="minyear($event)"></mat-slider>  
+    <br>
+  </div>
 
-  <div class="form-check">
+  <div *ngIf="isMovie" class="form-group">
+    <label for="shortmovie">Shortest Movie Length (mins)</label><br>
+    <div style="margin-top:.5em;"></div>
+    <mat-slider id="shortmovie" thumbLabel [displayWith]="formatLabel" min="0" max="240" style='width:500px' (change)="mindur($event)"></mat-slider> 
+    <br>
+  </div>
+ 
+  <div *ngIf="isMovie" class="form-group">
+    <label for="longmovie">Longest Movie Length (mins)</label><br>
+    <div style="margin-top:.5em;"></div>
+    <mat-slider id="longmovie" thumbLabel [displayWith]="formatLabel" min="0" max="240" style='width:500px' (change)="maxdur($event)"></mat-slider>
+  </div>
+  <div *ngIf="isMovie" class="form-check">
     <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" (change)="bad($event)">
     <label class="form-check-label" for="defaultCheck1">
       Are bad movies okay?
+    </label>
+  </div>
+  <div *ngIf="!isMovie" class="form-group">
+    <label for="airedby">Shows that Aired After: </label><br>
+    <div style="margin-top:.5em;"></div>
+    <mat-slider id="airedby" thumbLabel [displayWith]="formatLabel" min="1900" max="2018" style='width:500px' (change)="airedby($event)"></mat-slider>
+  </div> 
+  <br>
+  <div *ngIf="!isMovie" class="form-group">
+    <label for="airedsince">Shows that Aired Before: </label><br>
+    <div style="margin-top:.5em;"></div>
+    <mat-slider id="airedsince" thumbLabel [displayWith]="formatLabel" min="1900" max="2018" style='width:500px' (change)="airedsince($event)"></mat-slider>
+  </div> 
+  <br>
+  <div *ngIf="!isMovie" class="form-group">
+    <label for="shortmovie">Shortest Episode Length (mins)</label><br>
+    <div style="margin-top:.5em;"></div>
+    <mat-slider id="shortmovie" thumbLabel [displayWith]="formatLabel" min="0" max="240" style='width:500px' (change)="mindur($event)"></mat-slider> 
+  </div>
+  <br>
+  <div *ngIf="!isMovie" class="form-group">
+    <label for="longmovie">Longest Episode Length (mins)</label><br>
+    <div style="margin-top:.5em;"></div>
+    <mat-slider id="longmovie" thumbLabel [displayWith]="formatLabel" min="0" max="240" style='width:500px' (change)="maxdur($event)"></mat-slider>
+  </div>
+  <div *ngIf="!isMovie" class="form-check">
+    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" (change)="tvrating($event)">
+    <label class="form-check-label" for="defaultCheck1">
+      High-rated shows only?
     </label>
   </div>
   <button (click) = 'submitMovie()' type="submit" class="btn btn-primary">Submit</button>
