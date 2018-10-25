@@ -15,3 +15,11 @@
     margin-left: -15em; /*set to a negative number 1/2 of your width*/
     padding-top: 55px;
 }
+
+#title, #summary, #releaseDate, #rating{
+    font-size: 1.25em;
+}
+
+#resultspage{
+    background-color: #cccccc;
+}

@@ -11,5 +11,6 @@ export class CarouselComponent {
 
   constructor(config: NgbCarouselConfig) {
     config.interval = 4000;
+    config.pauseOnHover = false;
   }
 }
