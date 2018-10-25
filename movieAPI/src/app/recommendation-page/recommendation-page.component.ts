@@ -15,7 +15,7 @@ export class RecommendationPageComponent implements OnInit {
   title;
   actorsMoviesTogether="";
   finalData;
-  desiredFormat="";
+  desiredFormat="Movie";
   //Both
   genreList="";
   languageList="&language=";
@@ -42,7 +42,6 @@ export class RecommendationPageComponent implements OnInit {
   };
   setValues = () =>{
     console.log("Genre",this.util.genre)
-    this.title = this.util.title;
     this.desiredFormat=this.util.desiredFormat;
     //Both
     this.genreList=this.util.genreList;
