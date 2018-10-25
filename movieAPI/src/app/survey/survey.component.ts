@@ -118,33 +118,33 @@ export class SurveyComponent implements OnInit {
   }
   minyear(val){
     // console.log(val.value);
-    this.util.releaseDateAfter = val.value;
+    this.util.releaseDateAfter = "&primary_release_date.gte="+val.value+"-01-01";
     console.log(this.util.releaseDateAfter);
   }
   maxyear(val){
     // console.log(val.value);
-    this.util.releaseDateBefore = val.value;
+    this.util.releaseDateBefore = "&primary_release_date.lte="+val.value+"-01-01";
   }
   mindur(val){
     // console.log(val.value);
-    this.util.minRuntime = val.value;
+    this.util.minRuntime = "&with_runtime.gte="+val.value;
   }
   maxdur(val){
     // console.log(val.value);
-    this.util.maxRuntime = val.value;
+    this.util.maxRuntime ="&with_runtime.lte="+ val.value;
   }
   bad(val){
     // console.log(val.srcElement.checked);
-    this.util.badMovies = val.srcElement.checked;
+    this.util.badMovies = "&vote_average.lte="+val.srcElement.checked;
   }
   //TV Shows
   airedby(val){
     // console.log(val.value);
-    this.util.airedAfter = val.value;
+    this.util.airedAfter = "&first_air_date.gte="+val.value+"-01-01";
   }
   airedsince(val){
     // console.log(val.value);
-    this.util.airedBefore = val.value;
+    this.util.airedBefore = "&first_air_date.lte="+val.value+"-01-01";
   }
   tvrating(val){
     // console.log(val.srcElement.checked);
