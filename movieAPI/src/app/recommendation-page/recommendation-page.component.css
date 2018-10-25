@@ -1,9 +1,12 @@
-
+#stylediv{
+    width: 80%;
+    margin-left: 10%;
+}
 #buttoncomponent{
     /* left: -500px; */
     position: relative;
-    left: 70%;
-    top: 80%
+    
+    
 }
 #resultsPage{
     position: relative;
@@ -16,7 +19,7 @@
     padding-top: 55px;
 }
 
-body{
-    height: 100vh;
+html{
+    height: 110vh;
     background-color: #cccccc;
 }
