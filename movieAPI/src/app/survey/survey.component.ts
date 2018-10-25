@@ -30,6 +30,7 @@ export class SurveyComponent implements OnInit {
   }
   actorCount = 1;
   addParagraph(){
+    console.log("here");
     if (this.currentActor!=""){
       let splitted = this.actorName.split(" ");
       // var p2 = "<p div_id = "+splitted[1]+">"+this.actorName+'<button type="button" (click)="testFunct()" class="close" aria-label="Close"> <span aria-hidden="true">&times;</span></button>'+"</p>";
@@ -47,7 +48,7 @@ export class SurveyComponent implements OnInit {
   title = 'movieAPI';
   actorsMoviesTogether="";
   finalData="";
-  desiredFormat="Movie";
+  isMovie=true; //boolean replacing desiredFormat
   //Both
   genreList="";
   language="";
@@ -63,15 +64,22 @@ export class SurveyComponent implements OnInit {
   releaseDateBefore="";
   releaseDateAfter="";
   //TV
-  tvRating = "8";
-  airedBefore = "2016";
-  airedAfter = "2010";
+  highRating="false";
+  airedBefore = "";
+  airedAfter = "";
 
 
   movieortv(val){
     console.log(val.srcElement.value);
-    this.desiredFormat = val.srcElement.value;
+    if(val.srcElement.value == "Movie") {
+      this.isMovie = true;
+    }
+    else{
+      this.isMovie = false;
+    }
+    
   }
+  //Movies
   movgenre(val){
     console.log(val.srcElement.value);
     this.genre = val.srcElement.value;
@@ -81,14 +89,13 @@ export class SurveyComponent implements OnInit {
     this.language = val.srcElement.value;
   }
   actors(val){
-    console.log(val.srcElement.value);
     this.currentActor = val.srcElement.value;
     if (this.actorName.length>=1)
       this.actorName += " "+val.srcElement.value;
     else 
       this.actorName= val.srcElement.value;
+    this.addParagraph();
     val.srcElement.value = "";
-    console.log(this.actorName);
   }
   minyear(val){
     console.log(val.value);
@@ -109,6 +116,19 @@ export class SurveyComponent implements OnInit {
   bad(val){
     console.log(val.srcElement.checked);
     this.badMovies = val.srcElement.checked;
+  }
+  //TV Shows
+  airedby(val){
+    console.log(val.value);
+    this.airedAfter = val.value;
+  }
+  airedsince(val){
+    console.log(val.value);
+    this.airedBefore = val.value;
+  }
+  tvrating(val){
+    console.log(val.srcElement.checked);
+    this.highRating = val.srcElement.checked;
   }
   submitMovie() {
 

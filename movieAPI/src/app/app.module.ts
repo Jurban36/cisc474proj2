@@ -11,7 +11,6 @@ import { WhatwedoComponent } from './whatwedo/whatwedo.component';
 import { RecommendationPageComponent } from './recommendation-page/recommendation-page.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HomePageComponent } from './home-page/home-page.component';
-import {SliderModule} from "angular-double-slider";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSliderModule} from '@angular/material/slider';
 import { TvRecommendationComponent } from './tv-recommendation/tv-recommendation.component';
@@ -39,7 +38,6 @@ const appRoutes: Routes = [
     NgbModule,
     BrowserAnimationsModule,
     MatSliderModule,
-    SliderModule,
     HttpModule,
     RouterModule.forRoot(
       appRoutes,

@@ -1,6 +1,14 @@
 #masterForm{
     margin-top: 2em;
 }
+.submitbutton{
+    color: #cccccc;
+    background-color: #424242;
+}
+
+label, textarea, option{
+    font-size: 1.25em;
+}
 #button1{
     display: none;
 }
