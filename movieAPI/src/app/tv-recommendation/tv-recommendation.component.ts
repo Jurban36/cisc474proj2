@@ -1,47 +1,30 @@
 import { Component, OnInit, Injectable, Input } from '@angular/core';
 // import { AppComponent } from '../app.component';
-import { ConfigService } from './config.service';
+import { ConfigService } from '../recommendation-page/config.service';
 import { SurveyComponent } from '../survey/survey.component';
 @Component({
-  selector: 'app-recommendation-page',
-  templateUrl: './recommendation-page.component.html',
-  styleUrls: ['./recommendation-page.component.css']
+  selector: 'app-tv-recommendation',
+  templateUrl: './tv-recommendation.component.html',
+  styleUrls: ['./tv-recommendation.component.css']
 })
-
-@Injectable({
-  providedIn: 'root'
-})
-export class RecommendationPageComponent implements OnInit {
+export class TvRecommendationComponent implements OnInit {
   title;
   actorsMoviesTogether="";
   finalData;
-  desiredFormat="Movie";
+  desiredFormat="TV";
   pageNumber = 1;
   listOfHit = [];
   //Both
-  genreList="";
-  languageList="&language=";
+  genreList="Comedy";
+  languageList="&language=en";
   maxRuntime="";
   minRuntime="";
   genre="";
   language="";
-  //Movie
-  actorIDs = "&with_people=";
-  actorName="";
-  splitted;
-  goodMovies="";
-  badMovies="";
-  releaseDateBefore="";
-  releaseDateAfter="";
   //TV
   tvRating="";
   airedBefore="";
   airedAfter="";
-  model = {
-    left: true,
-    middle: false,
-    right: false
-  };
   setValues = () =>{
     console.log("Genre",this.util.genre)
     this.desiredFormat=this.util.desiredFormat;
@@ -52,18 +35,6 @@ export class RecommendationPageComponent implements OnInit {
     if (this.minRuntime.length>=1)
       this.minRuntime="&with_runtime.gte="+this.util.minRuntime;
     this.genre=this.util.genre;
-    //Movie
-    this.actorName = this.util.actorName;
-    if (this.actorName.length>=1)
-      this.splitted = this.actorName.split(" ");
-    if (this.util.goodMovies.length>=1)
-      this.goodMovies="&vote_average.gte="+this.util.goodMovies;
-    if (this.util.badMovies.length>=1)
-      this.badMovies="&vote_average.lte="+this.util.badMovies;
-    if (this.util.releaseDateBefore.length>=1)
-      this.releaseDateBefore="&primary_release_date.lte="+this.util.releaseDateBefore+"-01-01";
-    if (this.util.releaseDateAfter.length>=1)
-      this.releaseDateAfter="&primary_release_date.gte="+this.util.releaseDateAfter+"-01-01";
     //TV
     if (this.util.tvRating.length>=1)
       this.tvRating="&vote_average.gte="+this.util.tvRating;
@@ -71,7 +42,6 @@ export class RecommendationPageComponent implements OnInit {
       this.airedBefore="&first_air_date.lte="+this.util.airedBefore+"01-01";
     if (this.util.airedAfter.length>=1)
       this.airedAfter="&first_air_date.gte="+this.util.airedAfter+"01-01";
-    console.log(this.actorName);
   }
   pullGenre = () =>{
     this.svc.getGenreMovie().subscribe(data=>{
@@ -95,37 +65,13 @@ export class RecommendationPageComponent implements OnInit {
       console.log(this.languageList)
     });
   }
-  pullActors =() =>{
-    let i = 0;
-    for (i=0;i<this.splitted.length;i++){
-      let string = this.splitted[i]+" "+this.splitted[i+1];
-      this.svc.getActorNameMovie(string).subscribe(data=>{
-        let testing = data.json();
-        let actorIDAmount = this.actorIDs.split(",");
-        if (actorIDAmount.length==this.splitted.length/2){
-          this.actorIDs+=testing.results[0].id;
-          // this.pullActorPairs();
-        }
-        else
-          this.actorIDs+=testing.results[0].id+",";
-        // console.log(testing.results[0].known_for[0]);
-      });
-      i+=1;
-    } 
-  }
-  pullFinalMovie = () =>{
-    this.svc.getEverythingMovie(this.actorIDs,this.genreList,this.releaseDateAfter,this.releaseDateBefore,this.languageList,this.goodMovies,this.minRuntime,this.maxRuntime,this.pageNumber.toString()).subscribe(data=>{
-      console.log(data.json());
-      this.finalData = data.json();
-    });
-  }
   randomFunction = () =>{
     var random = this.finalData.results[Math.floor(Math.random() * this.finalData.results.length)];
     if (this.listOfHit.length==0){}
     else if (this.listOfHit.length==this.finalData.results.length){
       this.listOfHit = [];
       this.pageNumber = this.pageNumber+=1;
-      this.pullFinalMovie();
+      this.pullFinalTV();
       random = this.finalData.results[Math.floor(Math.random() * this.finalData.results.length)];
     }
     else{
@@ -133,9 +79,9 @@ export class RecommendationPageComponent implements OnInit {
         random = this.finalData.results[Math.floor(Math.random() * this.finalData.results.length)];
     }
     this.listOfHit.push(random);
-    document.getElementById('title').innerHTML ="Title: "+random.original_title ;
+    document.getElementById('title').innerHTML ="Title: "+random.original_name ;
     document.getElementById('summary').innerHTML ="Summary: "+random.overview ;
-    document.getElementById('releaseDate').innerHTML ="Release Date: "+random.release_date ;
+    document.getElementById('releaseDate').innerHTML ="First Aired: "+random.first_air_date ;
     document.getElementById('rating').innerHTML ="Rating: "+random.vote_average ;
   }
   construct = () =>{
@@ -143,20 +89,25 @@ export class RecommendationPageComponent implements OnInit {
       this.pullGenre();
     if (this.language.length>=1)
       this.pullLanguage();
-    if ((this.desiredFormat=="Movie")&&(this.actorName.length>=1))
-      this.pullActors();
     setTimeout(() => {
       console.log(this.genreList)
-      console.log(this.actorIDs);
-      this.pullFinalMovie();
+       
+      this.pullFinalTV();
     }, 1000);
     setTimeout(() => {
       this.randomFunction();
     }, 1200);
   }
+  pullFinalTV = () =>{
+    this.svc.getEverythingTV(this.airedBefore,this.airedAfter,this.tvRating,this.genreList,this.maxRuntime,this.minRuntime,this.pageNumber.toString()).subscribe(data=>{
+      console.log(data.json());
+      this.finalData = data.json();
+      console.log(this.finalData.results.length);
+    });
+  }
   constructor(private svc:ConfigService,private util: SurveyComponent){
     
-    this.setValues();
+    // this.setValues();
 
     setTimeout(() => {
       this.construct()
@@ -170,6 +121,7 @@ export class RecommendationPageComponent implements OnInit {
     // });
   }
   testFunct(){
+    console.log("here")
     this.randomFunction();
   }
   ngOnInit() {

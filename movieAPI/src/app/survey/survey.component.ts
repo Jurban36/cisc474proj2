@@ -11,23 +11,22 @@ import { Component, OnInit, Input, Injectable } from '@angular/core';
 export class SurveyComponent implements OnInit {
 
   title = 'movieAPI';
-  actorsMoviesTogether;
-  finalData;
-  desiredFormat;
+  actorsMoviesTogether="";
+  finalData="";
+  desiredFormat="Movie";
   //Both
-  genreList;
-  language;
-  languageList;
-  maxRuntime;
-  minRuntime;
-  genre;
+  genreList="";
+  language="";
+  languageList="";
+  maxRuntime="";
+  minRuntime="";
+  genre="";
   //Movie
-  actorIDs;
-  actorName;
-  goodMovies;
-  badMovies;
-  releaseDateBefore;
-  releaseDateAfter;
+  actorName="";
+  goodMovies="";
+  badMovies="";
+  releaseDateBefore="";
+  releaseDateAfter="";
   //TV
   tvRating = "8";
   airedBefore = "2016";
@@ -49,6 +48,7 @@ export class SurveyComponent implements OnInit {
   actors(val){
     console.log(val.srcElement.value);
     this.actorName = val.srcElement.value;
+    console.log(this.actorName);
   }
   minyear(val){
     console.log(val.value);

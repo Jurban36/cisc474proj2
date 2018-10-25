@@ -55,7 +55,7 @@ export class ConfigService {
     console.log(this.genreURL);
     return this.http.get(this.genreURL,{headers: h});
   }
-  getEverythingMovie = (actors: string, Genre: string, releaseDateAfter: string, releaseDateBefore: string, language: string, rating: string, minRuntime: string, maxRunTime: string):Observable<any> => {
+  getEverythingMovie = (actors: string, Genre: string, releaseDateAfter: string, releaseDateBefore: string, language: string, rating: string, minRuntime: string, maxRunTime: string, pageNumber: string):Observable<any> => {
     const h: Headers=new Headers();
     var splitted = actors.split(" ");
     let i =0;
@@ -66,13 +66,13 @@ export class ConfigService {
       }
       else{this.testingMultiple+=splitted[i]+","}
     }
-    this.finalURL = "https://api.themoviedb.org/3/discover/movie?api_key=9374cadd7f8f1a2add90862df0a725e1"+language+"&include_adult=false&include_video=false&page=1"+rating+releaseDateAfter+releaseDateBefore+Genre+actors+minRuntime+maxRunTime;
+    this.finalURL = "https://api.themoviedb.org/3/discover/movie?api_key=9374cadd7f8f1a2add90862df0a725e1"+language+"&include_adult=false&include_video=false&page="+pageNumber+rating+releaseDateAfter+releaseDateBefore+Genre+actors+minRuntime+maxRunTime;
     console.log(this.finalURL);
     return this.http.get(this.finalURL,{headers: h});
   }
-  getEverythingTV = (airedBefore: string, airedAfter: string, tvRating: string, genre: string, maxRuntime: string, minRuntime: string):Observable<any> => {
+  getEverythingTV = (airedBefore: string, airedAfter: string, tvRating: string, genre: string, maxRuntime: string, minRuntime: string, pageNumber: string):Observable<any> => {
     const h: Headers=new Headers();
-    this.finalURL = "https://api.themoviedb.org/3/discover/tv?api_key=9374cadd7f8f1a2add90862df0a725e1&language=en-US&sort_by=popularity.desc"+airedBefore+airedAfter+"&page=1&timezone=America%2FNew_York"+tvRating+genre+minRuntime+maxRuntime+"&include_null_first_air_dates=false";
+    this.finalURL = "https://api.themoviedb.org/3/discover/tv?api_key=9374cadd7f8f1a2add90862df0a725e1&language=en-US&sort_by=popularity.desc"+airedBefore+airedAfter+"&page="+pageNumber+"&timezone=America%2FNew_York"+tvRating+genre+minRuntime+maxRuntime+"&include_null_first_air_dates=false";
     console.log(this.finalURL);
     return this.http.get(this.finalURL,{headers: h});
   }

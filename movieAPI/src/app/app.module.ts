@@ -14,9 +14,11 @@ import { HomePageComponent } from './home-page/home-page.component';
 import {SliderModule} from "angular-double-slider";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSliderModule} from '@angular/material/slider';
+import { TvRecommendationComponent } from './tv-recommendation/tv-recommendation.component';
 
 const appRoutes: Routes = [
   {path: '',component: HomePageComponent},
+  {path: 'tvrecommendation', component: TvRecommendationComponent},
   { path: 'recommendation', component: RecommendationPageComponent },
 ];
 @NgModule({
@@ -29,6 +31,7 @@ const appRoutes: Routes = [
     WhatwedoComponent,
     RecommendationPageComponent,
     HomePageComponent,
+    TvRecommendationComponent,
   ],
   
   imports: [
