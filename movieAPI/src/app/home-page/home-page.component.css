@@ -1,6 +1,7 @@
 #whatwedo{
     /* background-color: lightgray; */
     padding-top: 55px;
+    background-color: #424242;
 }
 
 .submitbutton{
@@ -19,7 +20,7 @@
 #quizcomponent{
     display: flex;
     justify-content: center;
-    /* background-color: #F36D48; */
+    background-color: #424242;
     padding-top: 75px;
     padding-bottom: 100px;
 }
