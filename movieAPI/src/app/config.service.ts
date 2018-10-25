@@ -55,8 +55,9 @@ export class ConfigService {
     console.log(this.genreURL);
     return this.http.get(this.genreURL,{headers: h});
   }
-  getEverythingMovie = (actors: string, Genre: string, releaseDateAfter: string, releaseDateBefore: string, language: string, rating: string, minRuntime: string, maxRunTime: string):Observable<any> => {
+  getEverythingMovie = (actors: string, Genre: string, releaseDateAfter: string, releaseDateBefore: string, language: string, rating: string, minRuntime: string, maxRunTime: string, pageNumber: string):Observable<any> => {
     const h: Headers=new Headers();
+    console.log()
     var splitted = actors.split(" ");
     let i =0;
     this.testingMultiple="&with_people="
@@ -66,7 +67,7 @@ export class ConfigService {
       }
       else{this.testingMultiple+=splitted[i]+","}
     }
-    this.finalURL = "https://api.themoviedb.org/3/discover/movie?api_key=9374cadd7f8f1a2add90862df0a725e1"+language+"&include_adult=false&include_video=false&page=1"+rating+releaseDateAfter+releaseDateBefore+Genre+actors+minRuntime+maxRunTime;
+    this.finalURL = "https://api.themoviedb.org/3/discover/movie?api_key=9374cadd7f8f1a2add90862df0a725e1"+language+"&include_adult=false&include_video=false&page="+pageNumber+rating+releaseDateAfter+releaseDateBefore+Genre+actors+minRuntime+maxRunTime;
     console.log(this.finalURL);
     return this.http.get(this.finalURL,{headers: h});
   }

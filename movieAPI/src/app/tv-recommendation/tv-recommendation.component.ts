@@ -25,24 +25,24 @@ export class TvRecommendationComponent implements OnInit {
   tvRating="";
   airedBefore="";
   airedAfter="";
-  setValues = () =>{
-    console.log("Genre",this.util.genre)
-    this.isMovie=this.util.isMovie;
-    //Both
-    this.genreList=this.util.genreList;
-    if (this.maxRuntime.length>=1)
-      this.maxRuntime="&with_runtime.lte="+this.util.maxRuntime;
-    if (this.minRuntime.length>=1)
-      this.minRuntime="&with_runtime.gte="+this.util.minRuntime;
-    this.genre=this.util.genre;
-    //TV
-    //if (this.util.highRating.length>=1)
-     // this.tvRating="&vote_average.gte="+this.util.tvRating;
-    if (this.util.airedBefore.length>=1)
-      this.airedBefore="&first_air_date.lte="+this.util.airedBefore+"01-01";
-    if (this.util.airedAfter.length>=1)
-      this.airedAfter="&first_air_date.gte="+this.util.airedAfter+"01-01";
-  }
+  // setValues = () =>{
+  //   console.log("Genre",this.util.genre)
+  //   this.isMovie=this.util.isMovie;
+  //   //Both
+  //   this.genreList=this.util.genreList;
+  //   if (this.maxRuntime.length>=1)
+  //     this.maxRuntime="&with_runtime.lte="+this.util.maxRuntime;
+  //   if (this.minRuntime.length>=1)
+  //     this.minRuntime="&with_runtime.gte="+this.util.minRuntime;
+  //   this.genre=this.util.genre;
+  //   //TV
+  //   //if (this.util.highRating.length>=1)
+  //    // this.tvRating="&vote_average.gte="+this.util.tvRating;
+  //   if (this.util.airedBefore.length>=1)
+  //     this.airedBefore="&first_air_date.lte="+this.util.airedBefore+"01-01";
+  //   if (this.util.airedAfter.length>=1)
+  //     this.airedAfter="&first_air_date.gte="+this.util.airedAfter+"01-01";
+  // }
   pullGenre = () =>{
     this.svc.getGenreMovie().subscribe(data=>{
       // this.genreList = data.json().genres;

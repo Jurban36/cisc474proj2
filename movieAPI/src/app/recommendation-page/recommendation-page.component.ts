@@ -12,6 +12,42 @@ import { SurveyComponent } from '../survey/survey.component';
   providedIn: 'root'
 })
 export class RecommendationPageComponent implements OnInit {
+  testFunct(elementNumber: string){
+    // let deleteName = document.getElementById("actor"+this.actorCount).first;
+    let deletedName = document.getElementById("actor"+elementNumber).firstChild.nodeValue;
+    document.getElementById("button"+elementNumber).style.display="none";
+    document.getElementById("actor"+elementNumber).firstChild.nodeValue = "";
+    let splitted = this.actorName.split(" ");
+    let split2 = deletedName.split(" ");
+    let first = splitted.indexOf(split2[0]);
+    splitted.splice(first,2);
+    this.actorName= splitted.toString();
+    this.actorName = "";
+    let i = 0;
+    for (i=0;i<splitted.length;i++){
+      if (i==0)
+        this.actorName+=splitted[i];
+      else
+      this.actorName+=" "+splitted[i];
+    }
+  }
+  actorCount = 1;
+  addParagraph(){
+    console.log("here");
+    if (this.currentActor!=""){
+      let splitted = this.actorName.split(" ");
+      // var p2 = "<p div_id = "+splitted[1]+">"+this.actorName+'<button type="button" (click)="testFunct()" class="close" aria-label="Close"> <span aria-hidden="true">&times;</span></button>'+"</p>";
+      // console.log(p2);
+      console.log("button"+this.actorCount);
+      document.getElementById("button"+this.actorCount).style.display="block";
+      document.getElementById("actor"+this.actorCount).firstChild.nodeValue = this.currentActor;
+      console.log(document.getElementById("actor"+this.actorCount).firstChild.nodeValue)
+      // document.getElementById("actor"+this.actorCount). = ;
+      console.log(document.getElementById("button"+this.actorCount));
+      // console.log(document.getElementById("button"+this.actorCount))
+      this.actorCount+=1;
+    }
+  }
   title;
   actorsMoviesTogether="";
   finalData;
@@ -19,13 +55,14 @@ export class RecommendationPageComponent implements OnInit {
   pageNumber = 1;
   listOfHit = [];
   //Both
-  genreList="";
+  genreList="&with_genres=";
   languageList="&language=";
   maxRuntime="";
   minRuntime="";
   genre="";
   language="";
   //Movie
+  currentActor="";
   actorIDs = "&with_people=";
   actorName="";
   splitted;
@@ -34,46 +71,54 @@ export class RecommendationPageComponent implements OnInit {
   releaseDateBefore="";
   releaseDateAfter="";
   //TV
-  tvRating="";
+  highRating="false";
   airedBefore="";
   airedAfter="";
+
   model = {
     left: true,
     middle: false,
     right: false
   };
-  setValues = () =>{
-    console.log("Genre",this.util.genre)
-    this.title = this.util.title;
-    this.isMovie=this.util.isMovie;
-    //Both
-    this.genreList=this.util.genreList;
-    if (this.maxRuntime.length>=1)
-      this.maxRuntime="&with_runtime.lte="+this.util.maxRuntime;
-    if (this.minRuntime.length>=1)
-      this.minRuntime="&with_runtime.gte="+this.util.minRuntime;
-    this.genre=this.util.genre;
-    //Movie
-    this.actorName = this.util.actorName;
-    if (this.actorName.length>=1)
-      this.splitted = this.actorName.split(" ");
-    if (this.util.goodMovies.length>=1)
-      this.goodMovies="&vote_average.gte="+this.util.goodMovies;
-    if (this.util.badMovies.length>=1)
-      this.badMovies="&vote_average.lte="+this.util.badMovies;
-    if (this.util.releaseDateBefore.length>=1)
-      this.releaseDateBefore="&primary_release_date.lte="+this.util.releaseDateBefore+"-01-01";
-    if (this.util.releaseDateAfter.length>=1)
-      this.releaseDateAfter="&primary_release_date.gte="+this.util.releaseDateAfter+"-01-01";
-    //TV
-    //if (this.util.tvRating.length>=1)
-     // this.tvRating="&vote_average.gte="+this.util.tvRating;
-    if (this.util.airedBefore.length>=1)
-      this.airedBefore="&first_air_date.lte="+this.util.airedBefore+"01-01";
-    if (this.util.airedAfter.length>=1)
-      this.airedAfter="&first_air_date.gte="+this.util.airedAfter+"01-01";
-    console.log(this.actorName);
+  reset(){
+    this.genreList="&with_genres=";
+    this.languageList ="&language=";
+    this.actorIDs="&with_people=";
+    this.actorName="";
+
   }
+  // setValues = () =>{
+  //   console.log("Genre",this.util.genre)
+  //   this.title = this.util.title;
+  //   this.isMovie=this.util.isMovie;
+  //   //Both
+  //   this.genreList=this.util.genreList;
+  //   if (this.maxRuntime.length>=1)
+  //     this.maxRuntime="&with_runtime.lte="+this.util.maxRuntime;
+  //   if (this.minRuntime.length>=1)
+  //     this.minRuntime="&with_runtime.gte="+this.util.minRuntime;
+  //   this.genre=this.util.genre;
+  //   //Movie
+  //   this.actorName = this.util.actorName;
+  //   if (this.actorName.length>=1)
+  //     this.splitted = this.actorName.split(" ");
+  //   if (this.util.goodMovies.length>=1)
+  //     this.goodMovies="&vote_average.gte="+this.util.goodMovies;
+  //   if (this.util.badMovies.length>=1)
+  //     this.badMovies="&vote_average.lte="+this.util.badMovies;
+  //   if (this.util.releaseDateBefore.length>=1)
+  //     this.releaseDateBefore="&primary_release_date.lte="+this.util.releaseDateBefore+"-01-01";
+  //   if (this.util.releaseDateAfter.length>=1)
+  //     this.releaseDateAfter="&primary_release_date.gte="+this.util.releaseDateAfter+"-01-01";
+  //   //TV
+  //   //if (this.util.tvRating.length>=1)
+  //    // this.tvRating="&vote_average.gte="+this.util.tvRating;
+  //   if (this.util.airedBefore.length>=1)
+  //     this.airedBefore="&first_air_date.lte="+this.util.airedBefore+"01-01";
+  //   if (this.util.airedAfter.length>=1)
+  //     this.airedAfter="&first_air_date.gte="+this.util.airedAfter+"01-01";
+  //   console.log(this.actorName);
+  // }
   pullGenre = () =>{
     this.svc.getGenreMovie().subscribe(data=>{
       // this.genreList = data.json().genres;
@@ -97,6 +142,7 @@ export class RecommendationPageComponent implements OnInit {
     });
   }
   pullActors =() =>{
+    console.log(this.actorName);
     let i = 0;
     for (i=0;i<this.splitted.length;i++){
       let string = this.splitted[i]+" "+this.splitted[i+1];
@@ -113,12 +159,15 @@ export class RecommendationPageComponent implements OnInit {
       });
       i+=1;
     } 
+    console.log(this.actorIDs);
   }
   pullFinalMovie = () =>{
+    // console.log(this.pageNumber.toString());
     this.svc.getEverythingMovie(this.actorIDs,this.genreList,this.releaseDateAfter,this.releaseDateBefore,this.languageList,this.goodMovies,this.minRuntime,this.maxRuntime,this.pageNumber.toString()).subscribe(data=>{
       console.log(data.json());
       this.finalData = data.json();
     });
+    this.reset();
   }
   randomFunction = () =>{
     var random = this.finalData.results[Math.floor(Math.random() * this.finalData.results.length)];
@@ -140,12 +189,22 @@ export class RecommendationPageComponent implements OnInit {
     document.getElementById('rating').innerHTML ="Rating: "+random.vote_average ;
   }
   construct = () =>{
-    if (this.genre.length>=1)
+    console.log(this.genre===undefined);
+    if (this.genre===undefined){    }
+    else{
+      console.log("here12345")
       this.pullGenre();
-    if (this.language.length>=1)
+    }
+    if (this.language===undefined){}
+    else
       this.pullLanguage();
-    if ((this.isMovie)&&(this.actorName.length>=1))
-      this.pullActors();
+    if ((this.actorName===undefined)){(console.log("here1"))
+    }
+    else if ((this.isMovie==false)){console.log("here2")}
+    else{
+      console.log(this.actorName);
+      this.splitted = this.actorName.split(" ");
+      this.pullActors();}
     setTimeout(() => {
       console.log(this.genreList)
       console.log(this.actorIDs);
@@ -155,22 +214,15 @@ export class RecommendationPageComponent implements OnInit {
       this.randomFunction();
     }, 1200);
   }
-  constructor(private svc:ConfigService,private util: SurveyComponent){
+  constructor(private svc:ConfigService){
     
-    this.setValues();
+    // this.setValues();
 
-    setTimeout(() => {
-      this.construct()
-    }, 100);
-    //DONT DELETE THIS!!!
-    // this.svc.getConfig().subscribe(data=>{
-    //   console.log(data.results);
-    //   console.log(data.json());
-    //   let testing = data.json();
-    //   console.log(testing.results[0].known_for[0]);
-    // });
+    // setTimeout(() => {
+    //   this.construct()
+    // }, 100);
   }
-  testFunct(){
+  randomFunct(){
     this.randomFunction();
   }
   ngOnInit() {
