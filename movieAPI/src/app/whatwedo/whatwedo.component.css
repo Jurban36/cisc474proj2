@@ -1,7 +1,14 @@
-h2{
-    padding-left: 6vw;
+h1{
+    padding-left: 10vw;
+    color: #cccccc;
 }
 
 p{
     padding-left: 4vw;
+    color: #cccccc;
+}
+
+img{
+    max-width: 90%;
+    margin-top: -25px;
 }
