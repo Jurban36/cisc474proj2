@@ -181,7 +181,7 @@ export class SurveyComponent implements OnInit {
   }
   construct() {
     console.log("Made it");
-    this.util.construct();
+      this.util.construct();
     this.reset();
   }
   ngOnInit() {

@@ -12,42 +12,6 @@ import { SurveyComponent } from '../survey/survey.component';
   providedIn: 'root'
 })
 export class RecommendationPageComponent implements OnInit {
-  testFunct(elementNumber: string){
-    // let deleteName = document.getElementById("actor"+this.actorCount).first;
-    let deletedName = document.getElementById("actor"+elementNumber).firstChild.nodeValue;
-    document.getElementById("button"+elementNumber).style.display="none";
-    document.getElementById("actor"+elementNumber).firstChild.nodeValue = "";
-    let splitted = this.actorName.split(" ");
-    let split2 = deletedName.split(" ");
-    let first = splitted.indexOf(split2[0]);
-    splitted.splice(first,2);
-    this.actorName= splitted.toString();
-    this.actorName = "";
-    let i = 0;
-    for (i=0;i<splitted.length;i++){
-      if (i==0)
-        this.actorName+=splitted[i];
-      else
-      this.actorName+=" "+splitted[i];
-    }
-  }
-  actorCount = 1;
-  addParagraph(){
-    console.log("here");
-    if (this.currentActor!=""){
-      let splitted = this.actorName.split(" ");
-      // var p2 = "<p div_id = "+splitted[1]+">"+this.actorName+'<button type="button" (click)="testFunct()" class="close" aria-label="Close"> <span aria-hidden="true">&times;</span></button>'+"</p>";
-      // console.log(p2);
-      console.log("button"+this.actorCount);
-      document.getElementById("button"+this.actorCount).style.display="block";
-      document.getElementById("actor"+this.actorCount).firstChild.nodeValue = this.currentActor;
-      console.log(document.getElementById("actor"+this.actorCount).firstChild.nodeValue)
-      // document.getElementById("actor"+this.actorCount). = ;
-      console.log(document.getElementById("button"+this.actorCount));
-      // console.log(document.getElementById("button"+this.actorCount))
-      this.actorCount+=1;
-    }
-  }
   title;
   actorsMoviesTogether="";
   finalData;
@@ -74,7 +38,7 @@ export class RecommendationPageComponent implements OnInit {
   highRating="false";
   airedBefore="";
   airedAfter="";
-
+  tvRating = "&vote_average.gte=8";
   model = {
     left: true,
     middle: false,
@@ -120,14 +84,17 @@ export class RecommendationPageComponent implements OnInit {
   //   console.log(this.actorName);
   // }
   pullGenre = () =>{
+    console.log("kjasdhkashjkd");
     this.svc.getGenreMovie().subscribe(data=>{
       // this.genreList = data.json().genres;
       let i =0;
       for (i =0;i<data.json().genres.length;i++){
         if (data.json().genres[i].name==this.genre){
+          console.log("jsdj")
           this.genreList += data.json().genres[i].id;
         }
       }
+      console.log(this.genreList);
     });
   }
   pullLanguage = () =>{
@@ -144,10 +111,14 @@ export class RecommendationPageComponent implements OnInit {
   pullActors =() =>{
     console.log(this.actorName);
     let i = 0;
+    console.log(this.splitted.length)
     for (i=0;i<this.splitted.length;i++){
+      console.log(this.splitted[i])
       let string = this.splitted[i]+" "+this.splitted[i+1];
+      console.log(string)
       this.svc.getActorNameMovie(string).subscribe(data=>{
         let testing = data.json();
+        console.log(testing);
         let actorIDAmount = this.actorIDs.split(",");
         if (actorIDAmount.length==this.splitted.length/2){
           this.actorIDs+=testing.results[0].id;
@@ -156,6 +127,7 @@ export class RecommendationPageComponent implements OnInit {
         else
           this.actorIDs+=testing.results[0].id+",";
         // console.log(testing.results[0].known_for[0]);
+        console.log(this.actorIDs)
       });
       i+=1;
     } 
@@ -188,30 +160,87 @@ export class RecommendationPageComponent implements OnInit {
     document.getElementById('releaseDate').innerHTML ="Release Date: "+random.release_date ;
     document.getElementById('rating').innerHTML ="Rating: "+random.vote_average ;
   }
+  //TV
+
+  tvRandomFunction = () =>{
+    var random = this.finalData.results[Math.floor(Math.random() * this.finalData.results.length)];
+    if (this.listOfHit.length==0){}
+    else if (this.listOfHit.length==this.finalData.results.length){
+      this.listOfHit = [];
+      this.pageNumber = this.pageNumber+=1;
+      this.pullFinalTV();
+      random = this.finalData.results[Math.floor(Math.random() * this.finalData.results.length)];
+    }
+    else{
+      while (this.listOfHit.includes(random))
+        random = this.finalData.results[Math.floor(Math.random() * this.finalData.results.length)];
+    }
+    this.listOfHit.push(random);
+    document.getElementById('title').innerHTML ="Title: "+random.original_name ;
+    document.getElementById('summary').innerHTML ="Summary: "+random.overview ;
+    document.getElementById('releaseDate').innerHTML ="First Aired: "+random.first_air_date ;
+    document.getElementById('rating').innerHTML ="Rating: "+random.vote_average ;
+  }
+  // tvConstruct = () =>{
+  //   if (this.genre.length>=1)
+  //     this.pullGenre();
+  //   if (this.language.length>=1)
+  //     this.pullLanguage();
+  //   setTimeout(() => {
+  //     console.log(this.genreList)
+  //     this.pullFinalTV();
+  //   }, 1000);
+  //   setTimeout(() => {
+  //     this.tvRandomFunction();
+  //   }, 1200);
+  // }
+  pullFinalTV = () =>{
+    this.svc.getEverythingTV(this.airedBefore,this.airedAfter,this.tvRating,this.genreList,this.maxRuntime,this.minRuntime,this.pageNumber.toString()).subscribe(data=>{
+      console.log(data.json());
+      this.finalData = data.json();
+      console.log(this.finalData.results.length);
+    });
+  }
   construct = () =>{
-    console.log(this.genre===undefined);
-    if (this.genre===undefined){    }
+    console.log(this.genre)
+    if (this.highRating==="false"){
+      this.tvRating="";
+    }
+    if (this.genre.length==0){  console.log("here")  }
     else{
       console.log("here12345")
       this.pullGenre();
     }
-    if (this.language===undefined){}
+    if (this.language.length==0){}
     else
       this.pullLanguage();
-    if ((this.actorName===undefined)){(console.log("here1"))
+    console.log(this.actorName);
+    console.log(this.actorName.length)
+    if (this.isMovie===false){
     }
-    else if ((this.isMovie==false)){console.log("here2")}
+    else if ((this.actorName.length==0)){(console.log("here1"))
+    }
     else{
-      console.log(this.actorName);
+      console.log("why am i here");
       this.splitted = this.actorName.split(" ");
       this.pullActors();}
+    
     setTimeout(() => {
-      console.log(this.genreList)
-      console.log(this.actorIDs);
-      this.pullFinalMovie();
+    //   console.log(this.genreList)
+    //   console.log(this.actorIDs);
+      if (this.isMovie)
+        this.pullFinalMovie();
+      else
+        this.pullFinalTV();
     }, 1000);
     setTimeout(() => {
-      this.randomFunction();
+      if (this.finalData.results.length==0){console.log("No Results")}
+      else if (this.isMovie==true){
+        this.randomFunction();
+      }
+      else{
+          this.tvRandomFunction();
+      }
     }, 1200);
   }
   constructor(private svc:ConfigService){
@@ -223,7 +252,10 @@ export class RecommendationPageComponent implements OnInit {
     // }, 100);
   }
   randomFunct(){
-    this.randomFunction();
+    if (this.isMovie===true)
+      this.randomFunction();
+    else
+      this.tvRandomFunction();
   }
   ngOnInit() {
   }

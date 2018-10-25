@@ -65,7 +65,7 @@ export class TvRecommendationComponent implements OnInit {
       console.log(this.languageList)
     });
   }
-  randomFunction = () =>{
+  tvRandomFunction = () =>{
     var random = this.finalData.results[Math.floor(Math.random() * this.finalData.results.length)];
     if (this.listOfHit.length==0){}
     else if (this.listOfHit.length==this.finalData.results.length){
@@ -84,7 +84,7 @@ export class TvRecommendationComponent implements OnInit {
     document.getElementById('releaseDate').innerHTML ="First Aired: "+random.first_air_date ;
     document.getElementById('rating').innerHTML ="Rating: "+random.vote_average ;
   }
-  construct = () =>{
+  tvConstruct = () =>{
     if (this.genre.length>=1)
       this.pullGenre();
     if (this.language.length>=1)
@@ -95,7 +95,7 @@ export class TvRecommendationComponent implements OnInit {
       this.pullFinalTV();
     }, 1000);
     setTimeout(() => {
-      this.randomFunction();
+      this.tvRandomFunction();
     }, 1200);
   }
   pullFinalTV = () =>{
@@ -110,7 +110,7 @@ export class TvRecommendationComponent implements OnInit {
     // this.setValues();
 
     setTimeout(() => {
-      this.construct()
+      this.tvConstruct()
     }, 100);
     //DONT DELETE THIS!!!
     // this.svc.getConfig().subscribe(data=>{
@@ -122,7 +122,7 @@ export class TvRecommendationComponent implements OnInit {
   }
   testFunct(){
     console.log("here")
-    this.randomFunction();
+    this.tvRandomFunction();
   }
   ngOnInit() {
   }
