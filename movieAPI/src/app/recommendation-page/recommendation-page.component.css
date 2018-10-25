@@ -19,3 +19,7 @@
     padding-top: 55px;
 }
 
+body{
+    height: 100vh;
+    background-color: #cccccc;
+}
