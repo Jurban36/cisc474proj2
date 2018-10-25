@@ -48,6 +48,12 @@
     <mat-slider id="maxyear" thumbLabel [displayWith]="formatLabel" min="1900" max="2018" style='width:500px' (change)="minyear($event)"></mat-slider>  
     <br>
   </div>
+  <label for="shortmovie">Shortest Movie Length (mins)</label><br>
+  <div style="margin-top:.5em;"></div>
+  <mat-slider id="shortmovie" thumbLabel [displayWith]="formatLabel" min="0" max="240" style='width:500px; color:rgba(186, 217, 247, 0.486)' (change)="mindur($event)"></mat-slider> 
+  <br><label for="longmovie">Longest Movie Length (mins)</label><br>
+  <div style="margin-top:.5em;"></div>
+  <mat-slider id="longmovie" thumbLabel [displayWith]="formatLabel" min="0" max="240" style='width:500px' (change)="maxdur($event)"></mat-slider>
 
   <div *ngIf="isMovie" class="form-group">
     <label for="shortmovie">Shortest Movie Length (mins)</label><br>
